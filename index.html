@@ -79,7 +79,7 @@
       <h1 id="city-title">ARCHITECTURE CITY</h1>
       <small id="meta">Loading source graph…</small><small id="daylight" aria-live="polite"></small>
       <div class="controls" id="lod-controls"><button data-mode="system" aria-pressed="true">CITY</button><button data-mode="file">DISTRICTS</button><button data-mode="symbol">BUILDINGS</button><button data-mode="all">ALL</button></div>
-      <div class="controls" id="focus-controls"><button data-focus="dead-drop">DEAD DROP</button><button data-focus="zero-dark">ZERO-DARK</button><button data-focus="product">PRODUCT</button><button data-focus="reset">RESET VIEW</button></div>
+      <div class="controls" id="focus-controls"><button data-focus="application">APPLICATION</button><button data-focus="services">SERVICES</button><button data-focus="packages">PACKAGES</button><button data-focus="reset">RESET VIEW</button></div>
       <div class="hint">Drag to orbit · wheel/pinch to zoom · hover on desktop or tap a structure to inspect safe repository evidence</div>
       <label class="search-wrap" for="node-search"><span>QUICK JUMP</span><input id="node-search" type="search" autocomplete="off" placeholder="Search systems, files, symbols"><button id="search-clear" type="button">CLEAR</button></label>
       <div id="search-results" class="search-results" hidden></div>
@@ -87,7 +87,7 @@
     </div>
   </section>
   <aside id="panel"><div class="eyebrow">Repository evidence</div><h2>Select a structure</h2><p class="muted">The city is a navigation layer over the checked-out repository. Moving lights represent graph relationships, never production traffic.</p></aside>
-  <div id="legend"><span class="dot" style="background:#4dd8ff"></span>product &nbsp; <span class="dot" style="background:#ff9657"></span>Dead Drop &nbsp; <span class="dot" style="background:#ae82ff"></span>Zero-Dark &nbsp; <span class="dot" style="background:#65e3ab"></span>integration</div>
+  <div id="legend"><span class="dot" style="background:#4dd8ff"></span>application &nbsp; <span class="dot" style="background:#ff9657"></span>services &nbsp; <span class="dot" style="background:#ae82ff"></span>packages &nbsp; <span class="dot" style="background:#65e3ab"></span>automation</div>
   <canvas id="c" aria-label="Repository-derived architecture city"></canvas><div id="tooltip" role="tooltip"></div><aside id="evidence-list" aria-label="Repository evidence list" hidden></aside>
   <script type="importmap">{"imports":{"three":"./vendor/three/three.module.js","orbit":"./vendor/three/OrbitControls.js"}}</script>
   <script type="module">
@@ -98,7 +98,7 @@
     function showBootError(message){if(!bootError)return;bootError.dataset.open='true';bootError.textContent=message;}
     function dismissIntro(){intro.hidden=true;try{sessionStorage.setItem(INTRO_KEY,'1')}catch{} if(!cameraIntro){camera.position.copy(cameraHome.position).add(new THREE.Vector3(40,80,50));controls.target.copy(cameraHome.target);cameraIntro={t:0,fromPos:camera.position.clone(),fromTarget:controls.target.clone(),toPos:cameraHome.position.clone(),toTarget:cameraHome.target.clone()};}}
     try{if(sessionStorage.getItem(INTRO_KEY)==='1')intro.hidden=true;}catch{}
-    function applyBranding(repo){const label=repo||'sample repository';if(sampleRepo)sampleRepo.textContent=label;if(hudEyebrow)hudEyebrow.textContent=`Repository-derived · sample · ${label} · no invented runtime activity`;if(cityTitle)cityTitle.textContent='ARCHITECTURE CITY';document.title=repo?`Architecture City · ${repo}`:'Architecture City';}
+    function applyBranding(repo, projectName){const label=repo||'sample repository', title=projectName||'ARCHITECTURE CITY';if(sampleRepo)sampleRepo.textContent=label;if(hudEyebrow)hudEyebrow.textContent=`Repository-derived · snapshot · ${label} · no invented runtime activity`;if(cityTitle)cityTitle.textContent=title.toUpperCase();document.title=repo?`${title} · ${repo}`:title;}
     let renderer; try{renderer=new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });}catch(error){showBootError('WebGL failed to start in this browser. Architecture City needs a WebGL-capable device.');throw error;}
     if(!renderer.getContext()){showBootError('WebGL is unavailable here, so the 3D city cannot render.');}
     renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75)); renderer.setSize(innerWidth, innerHeight); renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.35;
@@ -106,7 +106,7 @@
     const camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, .1, 3200); camera.position.set(90, 220, 90);
     const controls = new OrbitControls(camera, canvas); controls.enableDamping = true; controls.dampingFactor = .07; controls.maxPolarAngle = Math.PI * .495; controls.minDistance = 36; controls.maxDistance = 620; controls.target.set(0, 0, 0);
     const skyLight = new THREE.HemisphereLight(0x1b2c44, 0x02040a, 1.15), sun = new THREE.DirectionalLight(0x6f849e, .55), rim = new THREE.PointLight(0x4f7cff, 90, 520, 2), fill = new THREE.PointLight(0xb24dff, 70, 560, 2), groundGlow = new THREE.PointLight(0xffb45a, 120, 420, 2), neonWash = new THREE.PointLight(0x33d6ff, 65, 480, 2); sun.position.set(90, 220, 40); rim.position.set(-150, 60, -120); fill.position.set(170, 80, 140); groundGlow.position.set(0, 6, 20); neonWash.position.set(-40, 40, -80); scene.add(skyLight, sun, rim, fill, groundGlow, neonWash);
-    const GROUPS = { product:{color:0x22c7e8,anchor:[0,0,-18],label:'PRODUCT SURFACE'}, 'dead-drop':{color:0xc7743a,anchor:[-102,0,32],label:'DEAD DROP'}, 'zero-dark':{color:0x7f63ff,anchor:[102,0,32],label:'ZERO-DARK'}, integration:{color:0x38c986,anchor:[0,0,-112],label:'INTEGRATION'}, evidence:{color:0xc99642,anchor:[0,0,124],label:'EVIDENCE'}, ci:{color:0x637a89,anchor:[0,0,-172],label:'CI / MAP'}, tooling:{color:0x476ccf,anchor:[-152,0,-104],label:'TOOLING'}, root:{color:0x596b78,anchor:[152,0,-104],label:'ROOT'}, 'surb-reply':{color:0xb45aa6,anchor:[0,0,174],label:'SURB REPLY'} };
+    const GROUPS = { application:{color:0x22c7e8,anchor:[0,0,-18],label:'APPLICATION'}, services:{color:0xc7743a,anchor:[-102,0,32],label:'SERVICES'}, packages:{color:0x7f63ff,anchor:[102,0,32],label:'PACKAGES'}, documentation:{color:0xc99642,anchor:[0,0,124],label:'DOCUMENTATION'}, automation:{color:0x637a89,anchor:[0,0,-172],label:'AUTOMATION'}, tooling:{color:0x476ccf,anchor:[-152,0,-104],label:'TOOLING'}, root:{color:0x596b78,anchor:[152,0,-104],label:'ROOT'} };
     const groups = Object.keys(GROUPS), clock = new THREE.Clock(), raycaster = new THREE.Raycaster(), pointer = new THREE.Vector2(); let graph, graphSource = 'summary', fullGraphLoaded = false, loadingFullGraph = null, mode = 'system', focus = null, expandedGroup = null, selectedNodeId = null, selectedRoute = null, pointerDown = null, city = new THREE.Group(), nodes = new Map(), pickables = [], pulseState = [], cloudState = [], edgeVisuals = [], labels = [], lampState = [], trafficState = [], facadeCache = new Map(), graphNodeIndex = new Map(), cameraHome = {position: new THREE.Vector3(90, 220, 90), target: new THREE.Vector3(0, 0, 0)}, cameraIntro = null; scene.add(city);
     const random = n => { const x = Math.sin(n * 9283.31) * 43758.5453; return x - Math.floor(x); }; const hash = value => [...String(value)].reduce((acc, char) => ((acc * 31) + char.charCodeAt(0)) >>> 0, 17), clamp=(value,min,max)=>Math.max(min,Math.min(max,value)); let groupMetrics = new Map(), fileWeightMax = 1, districtWeightMax = 1; const cityColor = (hex, lift=.64) => new THREE.Color(hex).multiplyScalar(lift); const rgba = (hex, opacity, emissive=.2) => new THREE.MeshStandardMaterial({color:cityColor(hex,.62),emissive:hex,emissiveIntensity:emissive,metalness:.88,roughness:.18,transparent:opacity<1,opacity});
     const viewerTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'local time', daylightLabel = document.querySelector('#daylight'); let daylightMinute = ''; function localDaylight(force=false) { const now = new Date(), minute = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}-${now.getHours()}-${now.getMinutes()}`; if (!force && minute === daylightMinute) return; daylightMinute = minute; const pulse = .5 + .5 * Math.sin(now.getMinutes()/60*Math.PI*2); sun.intensity = .35 + pulse * .15; skyLight.intensity = 1.05 + pulse * .12; rim.intensity = 80 + pulse * 25; fill.intensity = 55 + pulse * 20; groundGlow.intensity = 100 + pulse * 30; neonWash.intensity = 50 + pulse * 18; scene.background.copy(nightSky); scene.fog.color.copy(nightFog); scene.fog.density = .0015; daylightLabel.textContent = `City night · ${viewerTimeZone}`; }
@@ -130,22 +130,22 @@
     const CITY_GRID = { avenueCount:12, streetCount:17, blockW:18, blockD:12, streetW:7.5, avenueW:9.5, originX:-168, originZ:-150 };
     /* Contiguous neighborhoods on the grid. null = boulevard / open separator. */
     const NEIGHBORHOODS = [
-      {group:'ci', cols:[0,11], rows:[0,1], style:'slabs', hMul:.55},
+      {group:'automation', cols:[0,11], rows:[0,1], style:'slabs', hMul:.55},
       {group:null, cols:[0,11], rows:[2,3]},
       {group:'tooling', cols:[0,2], rows:[4,7], style:'slabs', hMul:.7},
-      {group:'product', cols:[4,7], rows:[4,7], style:'needles', hMul:1.25},
+      {group:'application', cols:[4,7], rows:[4,7], style:'needles', hMul:1.25},
       {group:'root', cols:[9,11], rows:[4,7], style:'mid', hMul:.85},
       {group:null, cols:[3,3], rows:[4,7]},
       {group:null, cols:[8,8], rows:[4,7]},
       {group:null, cols:[0,11], rows:[8,9]},
-      {group:'dead-drop', cols:[0,2], rows:[10,13], style:'stepped', hMul:.95},
-      {group:'integration', cols:[4,7], rows:[10,13], style:'mid', hMul:.9},
-      {group:'zero-dark', cols:[9,11], rows:[10,13], style:'needles', hMul:1.1},
+      {group:'services', cols:[0,2], rows:[10,13], style:'stepped', hMul:.95},
+      {group:'documentation', cols:[4,7], rows:[10,13], style:'mid', hMul:.9},
+      {group:'packages', cols:[9,11], rows:[10,13], style:'needles', hMul:1.1},
       {group:null, cols:[3,3], rows:[10,13]},
       {group:null, cols:[8,8], rows:[10,13]},
       {group:null, cols:[0,11], rows:[14,14]},
-      {group:'evidence', cols:[0,6], rows:[15,16], style:'slabs', hMul:.65},
-      {group:'surb-reply', cols:[8,11], rows:[15,16], style:'mid', hMul:.75},
+      {group:'documentation', cols:[0,6], rows:[15,16], style:'slabs', hMul:.65},
+      {group:'packages', cols:[8,11], rows:[15,16], style:'mid', hMul:.75},
       {group:null, cols:[7,7], rows:[15,16]}
     ];
     const HOOD_STYLE = Object.fromEntries(NEIGHBORHOODS.filter(n=>n.group).map(n=>[n.group,n]));
@@ -179,7 +179,7 @@
     function resetInspector() { panel.classList.remove('open');panel.innerHTML='<div class="eyebrow">Repository evidence</div><h2>Select a structure</h2><p class="muted">Hover on desktop or tap a structure to inspect source-derived metadata and safe relationships. Protected and cryptographic entries are intentionally omitted.</p>'; }
 
     async function loadGraphFile(file){const raw=await(await fetch(file,{cache:'no-store'})).json();return safeGraph(raw);}
-    function installGraph(next,source){graph=next;graphSource=source;graphNodeIndex=new Map(graph.nodes.map(node=>[node.id,node]));applyBranding(graph.repository||graph.sourceRepository||null);build();if(source==='summary')prefetchFullGraph();}
+    function installGraph(next,source){graph=next;graphSource=source;graphNodeIndex=new Map(graph.nodes.map(node=>[node.id,node]));applyBranding(graph.repository||graph.sourceRepository||null,graph.projectName);build();if(source==='summary')prefetchFullGraph();}
     function prefetchFullGraph(){const run=()=>{const link=document.createElement('link');link.rel='prefetch';link.as='fetch';link.href='architecture-map.json';document.head.append(link);};if('requestIdleCallback' in window)requestIdleCallback(run,{timeout:2500});else setTimeout(run,1200);}
     async function ensureFullGraph(){if(fullGraphLoaded)return;if(loadingFullGraph)return loadingFullGraph;detailToggle.textContent='LOADING FULL GRAPH…';detailToggle.disabled=true;document.querySelector('#meta').textContent='Downloading full safety-filtered graph…';loadingFullGraph=(async()=>{const next=await loadGraphFile('architecture-map.json');fullGraphLoaded=true;loadingFullGraph=null;installGraph(next,'full');})();try{return await loadingFullGraph;}catch(error){loadingFullGraph=null;detailToggle.disabled=false;detailToggle.textContent='LOAD FAILED — RETRY';document.querySelector('#meta').textContent='Full graph failed to load. Check that architecture-map.json is deployed beside index.html.';throw error;}}
     function nodeSearchString(node){return [node.label,node.path,node.id,node.group,node.type,node.status].filter(Boolean).join(' ').toLowerCase();}
