@@ -1,0 +1,9 @@
+.git
+.github
+legacy
+*.md
+.dockerignore
+.gitignore
+railway.toml
+**/node_modules
+**/.DS_Store

@@ -1,0 +1,26 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+watchPatterns = [
+  "index.html",
+  "architecture-city-summary.json",
+  "architecture-map.json",
+  "source-manifest.json",
+  "vendor/**",
+  "Caddyfile",
+  "Dockerfile",
+  "scripts/**"
+]
+
+[deploy]
+healthcheckPath = "/health"
+healthcheckTimeout = 30
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5
+
+# Template composer checklist (Railway UI):
+# - Source: this GitHub repo, Root Directory blank / "."
+# - Public HTTP networking: ON
+# - Healthcheck path: /health
+# - Variables: none required
+# - No volume, no private networking peers

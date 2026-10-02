@@ -1,0 +1,9 @@
+{
+  "sourceRepository": "cheffer0723/asymmetry",
+  "sourceRef": "main",
+  "sourceCommit": "58f60d7141ae709a34019a615136a940d4e57e0a",
+  "capturedAt": "2026-09-22",
+  "sourceDocuments": ["docs/ARCHITECTURE.md", "docs/SOURCE_EVIDENCE_MAP.md"],
+  "purpose": "Read-only city-visualization snapshot. This repository is deployed independently and never writes to the master product repository.",
+  "viewer": "Architecture City sample graph for zero-secret Railway / Pages deploys."
+}

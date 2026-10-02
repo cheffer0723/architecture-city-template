@@ -1,0 +1,43 @@
+{
+	admin off
+	persist_config off
+	auto_https off
+}
+
+# SITE_ROOT defaults to /srv in Docker. For local: SITE_ROOT=. PORT=8080 caddy run --config Caddyfile --adapter caddyfile
+:{$PORT:8080} {
+	encode gzip zstd
+
+	header {
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		X-Frame-Options SAMEORIGIN
+	}
+
+	handle /health {
+		header Content-Type "text/plain; charset=utf-8"
+		header Cache-Control "no-store"
+		respond "ok" 200
+	}
+
+	@vendor path /vendor/*
+	handle @vendor {
+		root * {$SITE_ROOT:/srv}
+		header Cache-Control "public, max-age=31536000, immutable"
+		file_server
+	}
+
+	@json path *.json
+	handle @json {
+		root * {$SITE_ROOT:/srv}
+		header Cache-Control "public, max-age=60"
+		# No SPA fallback: missing assets must 404 (HTML MIME blanks module scripts).
+		file_server
+	}
+
+	handle {
+		root * {$SITE_ROOT:/srv}
+		header /index.html Cache-Control "no-cache"
+		file_server
+	}
+}
