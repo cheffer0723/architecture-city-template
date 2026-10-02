@@ -1,0 +1,14 @@
+{
+  "projectName": "Architecture City Template",
+  "publicRepository": "cheffer0723/architecture-city-template",
+  "excludeDirectories": [".git", ".playwright-cli", "node_modules", "dist", "build", "coverage", ".next", "output", "target", "vendor"],
+  "groups": [
+    { "id": "application", "label": "APPLICATION", "paths": ["app/", "apps/", "src/", "web/", "client/"] },
+    { "id": "services", "label": "SERVICES", "paths": ["api/", "server/", "services/", "workers/"] },
+    { "id": "packages", "label": "PACKAGES", "paths": ["packages/", "libs/", "modules/"] },
+    { "id": "documentation", "label": "DOCUMENTATION", "paths": ["docs/", "documentation/"] },
+    { "id": "automation", "label": "AUTOMATION", "paths": [".github/", ".gitlab/", "ci/", "infra/"] },
+    { "id": "tooling", "label": "TOOLING", "paths": ["scripts/", "tools/"] },
+    { "id": "root", "label": "ROOT", "paths": [] }
+  ]
+}

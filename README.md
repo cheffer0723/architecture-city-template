@@ -1,95 +1,69 @@
-# Architecture City
+# Architecture City Template
 
-Static 3D architecture map for a software repository: districts, towers, and evidence-labelled traces rendered in the browser with Three.js. For the Asymmetry product mirror, this repo stays current via **snapshot sync** from private `cheffer0723/asymmetry` (not a live browser connection). It also ships as a Railway-ready Caddy service so deployers get a working city with **no secrets**.
+A reusable static Three.js template that turns the **public-safe structure of the repository containing it** into a navigable 3D city. Systems become districts, files become towers, and path-derived relationships become illuminated routes.
 
-## Keeping up with Asymmetry
+This repository is the template's own working example. It is not linked to ASYMMETRY, does not need a database or API, and does not inspect any other repository by default.
 
-Yes — that is the intended loop:
+## What is included
 
-1. Asymmetry changes.
-2. Private asymmetry CI regenerates + safety-filters the architecture graph.
-3. `asymmetry-city-sync[bot]` commits the public JSON into this repo.
-4. GitHub Pages (and a Railway service tracking `main`) serve the updated city.
+- A no-dependency Node scanner (`scripts/generate-city-map.mjs`)
+- Configurable directory-to-district rules (`architecture-city.config.json`)
+- A browser-only Three.js city viewer with desktop hover/tap inspection
+- A GitHub Actions workflow that regenerates the map on each push to `main` and deploys GitHub Pages
+- A Dockerfile and Caddy configuration for optional Railway or other container-based static hosts
+- A validator and HTTP smoke test
 
-Details and ops checklist: [`SYNC.md`](SYNC.md).
+## Start here
 
-The viewer itself only reads committed JSON. Railway packaging does not replace or disable that sync.
+1. Click **Use this template** on GitHub to make a repository for the project you want to visualize.
+2. Edit `architecture-city.config.json`:
+   - `projectName` is the visible project label.
+   - `publicRepository` is the public repository name shown in the viewer.
+   - `groups` maps path prefixes to city districts.
+   - `excludeDirectories` keeps generated and dependency folders out of the public map.
+3. Commit and push to `main`.
+4. In GitHub repository settings, enable **Pages → GitHub Actions**. The included workflow scans the checkout, validates the public-safe graph, commits refreshed map JSON when needed, and deploys it.
 
-## Deploy on Railway
+The template visualizes its own source until you add it to another project or replace the surrounding code with your project. No separate Railway service is needed for GitHub Pages.
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/architecture-city)
+## What is public
 
-Marketplace: [railway.com/deploy/architecture-city](https://railway.com/deploy/architecture-city)  
-Overview source: [`TEMPLATE.md`](TEMPLATE.md)  
-Publisher checklist: [`RAILWAY_PUBLISH.md`](RAILWAY_PUBLISH.md)  
-Live demo: [asymmetry-city-production.up.railway.app](https://asymmetry-city-production.up.railway.app)
+The generator emits file paths, filenames, byte/line counts, directory membership, selected source symbol names, and Markdown headings. It never emits file contents. It also omits paths, symbols, headings, and edges whose names match the protected-name policy (for example secrets, credentials, tokens, private keys, cryptographic primitives, and environment files).
 
-What Railway runs:
+That filter is a cautious publishing boundary, not a security review. Do not put private repositories or sensitive information into a public template without independently reviewing the generated JSON.
 
-- One service from the repo root
-- `Dockerfile` → Caddy 2 on `$PORT`
-- Healthcheck: `/health`
-- Variables: none required
-- Assets: `index.html`, vendored Three.js (`three.core.js` included), summary + full graph JSON
+## Local verification
 
-## What visitors get
-
-- Fast first paint from `architecture-city-summary.json` (CITY mode)
-- Optional **LOAD FULL DETAILS** from `architecture-map.json`
-- Sample attribution from `source-manifest.json` / graph `repository` field
-- Read-only, safety-filtered orientation — not source contents, not live traffic
-
-## Customize the sample
-
-1. Replace `architecture-city-summary.json` and `architecture-map.json` with your own graph (same schema).
-2. Update `source-manifest.json` so snapshot attribution stays honest.
-3. Edit focus buttons / district labels in `index.html` if your domains differ from the Asymmetry sample.
-4. Redeploy. No build step.
-
-## Local run
-
-### Option A — Caddy (same config as Railway)
+From the repository root:
 
 ```bash
-SITE_ROOT=. PORT=8080 caddy run --config Caddyfile --adapter caddyfile
-```
-
-Open `http://127.0.0.1:8080/`
-
-### Option B — any static server from the repo root
-
-```bash
+node scripts/generate-city-map.mjs
+node scripts/validate-city-map.mjs
 python3 -m http.server 8080
 ```
 
-### Smoke check
+Open `http://127.0.0.1:8080/`. For the production static-server path, use Caddy or the included Dockerfile, then run:
 
 ```bash
 ./scripts/smoke.sh http://127.0.0.1:8080
 ```
 
-## GitHub Pages
+## Optional Railway deployment
 
-`.github/workflows/deploy.yml` still publishes the repository root to Pages. Railway and Pages are independent hosts of the same static viewer.
+Railway is simply an alternate static host. Create one service from this GitHub repository, leave the root directory as `.`, enable public networking, and use `/health` as the health check. The supplied Dockerfile serves the same committed static viewer and generated JSON; it needs no environment variables or database. See [TEMPLATE.md](TEMPLATE.md).
 
-## Boundaries
+## Files you will edit most
 
-- `cheffer0723/asymmetry` remains the product source of truth.
-- This repository is a read-only public mirror of the safety-filtered city graph; it does not write back to asymmetry.
-- Sync is push-based snapshots from asymmetry CI, not a real-time runtime link.
-- Public posture: orientation and evidence boundaries only — no private internals, production traffic claims, or live system guarantees.
+| Path | Purpose |
+| --- | --- |
+| `architecture-city.config.json` | Project name, attribution, safe directory exclusions, district rules |
+| `index.html` | Viewer, colors, lighting, labels, interactions |
+| `scripts/generate-city-map.mjs` | Public-safe source scanner and graph writer |
+| `.github/workflows/deploy.yml` | Generate, validate, commit city data, deploy GitHub Pages |
+| `TEMPLATE.md` | Hosting guidance for template users |
 
-## Layout
+## Current boundaries
 
-| Path | Role |
-|---|---|
-| `index.html` | 3D viewer |
-| `architecture-city-summary.json` | Lightweight first-load graph |
-| `architecture-map.json` | Full safety-filtered graph |
-| `source-manifest.json` | Snapshot provenance |
-| `vendor/three/` | Vendored Three.js (`three.core.js`, module, OrbitControls) |
-| `Dockerfile` / `Caddyfile` / `railway.toml` | Railway static host |
-| `scripts/smoke.sh` | Deploy verification |
-| `TEMPLATE.md` | Railway marketplace overview |
-| `SYNC.md` | How asymmetry → city snapshot sync works |
-| `legacy/` | Earlier 2D explorer (not served by Railway) |
+- The template is static and read-only. It does not show live production traffic, runtime telemetry, or private source contents.
+- A push triggers a new snapshot. It is not a live connection to a running application.
+- GitHub Pages and Railway can host the same files independently.

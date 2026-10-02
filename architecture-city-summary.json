@@ -1,154 +1,73 @@
 {
-  "schemaVersion": "2.1.0",
-  "repository": "cheffer0723/asymmetry",
-  "commit": "50a188c660e5a1d80d80d7ec563934245c043ed2",
-  "generatedAt": "2026-10-01T15:02:08.937Z",
+  "schemaVersion": "1.0.0",
+  "projectName": "Architecture City Template",
+  "repository": "cheffer0723/architecture-city-template",
+  "commit": "local",
+  "generatedAt": "2026-10-02T17:18:50.683Z",
   "fidelity": "city-summary",
   "stats": {
     "files": 0,
     "directories": 0,
     "symbols": 0,
     "headings": 0,
-    "nodes": 5,
+    "nodes": 7,
     "edges": 0,
-    "fullFiles": 205,
-    "fullDirectories": 71,
-    "fullSymbols": 963,
-    "fullHeadings": 78,
-    "fullNodes": 1318,
-    "fullEdges": 4276
+    "fullFiles": 18,
+    "fullDirectories": 4,
+    "fullSymbols": 19,
+    "fullHeadings": 19,
+    "fullNodes": 67,
+    "fullEdges": 63
   },
   "nodes": [
     {
-      "id": "system:product",
+      "id": "system:application",
       "type": "system",
-      "label": "Shared Product Surface",
-      "group": "product",
-      "symbols": [],
-      "headings": []
+      "label": "APPLICATION",
+      "group": "application"
     },
     {
-      "id": "system:dead-drop",
+      "id": "system:services",
       "type": "system",
-      "label": "Dead Drop Capability Core",
-      "group": "dead-drop",
-      "symbols": [],
-      "headings": []
+      "label": "SERVICES",
+      "group": "services"
     },
     {
-      "id": "system:integration",
+      "id": "system:packages",
       "type": "system",
-      "label": "Integration Contracts",
-      "group": "integration",
-      "symbols": [],
-      "headings": []
+      "label": "PACKAGES",
+      "group": "packages"
     },
     {
-      "id": "system:evidence",
+      "id": "system:documentation",
       "type": "system",
-      "label": "Evidence / Audit Rail",
-      "group": "evidence",
-      "symbols": [],
-      "headings": []
+      "label": "DOCUMENTATION",
+      "group": "documentation"
     },
     {
-      "id": "system:ci",
+      "id": "system:automation",
       "type": "system",
-      "label": "Commit / CI / Generated Map",
-      "group": "ci",
-      "symbols": [],
-      "headings": []
+      "label": "AUTOMATION",
+      "group": "automation"
+    },
+    {
+      "id": "system:tooling",
+      "type": "system",
+      "label": "TOOLING",
+      "group": "tooling"
+    },
+    {
+      "id": "system:root",
+      "type": "system",
+      "label": "ROOT",
+      "group": "root"
     }
   ],
   "edges": [],
-  "protectedNodesOmitted": 154,
+  "protectedNodesOmitted": 0,
   "summaryOf": "architecture-map.json",
   "groupMetrics": {
-    "root": {
-      "systems": 0,
-      "files": 14,
-      "directories": 3,
-      "symbols": 0,
-      "headings": 47,
-      "nodes": 64,
-      "lines": 2602,
-      "bytes": 107603,
-      "weight": 5069.588888888888,
-      "maxFileWeight": 1742.9666666666667
-    },
-    "ci": {
-      "systems": 1,
-      "files": 7,
-      "directories": 2,
-      "symbols": 0,
-      "headings": 0,
-      "nodes": 10,
-      "lines": 593,
-      "bytes": 22786,
-      "weight": 1057.1777777777777,
-      "maxFileWeight": 202.25555555555556
-    },
-    "product": {
-      "systems": 1,
-      "files": 33,
-      "directories": 5,
-      "symbols": 71,
-      "headings": 0,
-      "nodes": 110,
-      "lines": 4574,
-      "bytes": 192486,
-      "weight": 12689.033713700144,
-      "maxFileWeight": 1681.5444444444445
-    },
-    "evidence": {
-      "systems": 1,
-      "files": 1,
-      "directories": 2,
-      "symbols": 0,
-      "headings": 9,
-      "nodes": 13,
-      "lines": 181,
-      "bytes": 7548,
-      "weight": 703.8666666666667,
-      "maxFileWeight": 427.8666666666667
-    },
-    "dead-drop": {
-      "systems": 1,
-      "files": 140,
-      "directories": 51,
-      "symbols": 801,
-      "headings": 22,
-      "nodes": 1015,
-      "lines": 12582,
-      "bytes": 504782,
-      "weight": 76544.71218332904,
-      "maxFileWeight": 1758.3
-    },
-    "surb-reply": {
-      "systems": 0,
-      "files": 2,
-      "directories": 3,
-      "symbols": 26,
-      "headings": 0,
-      "nodes": 31,
-      "lines": 332,
-      "bytes": 13663,
-      "weight": 2753.342657305372,
-      "maxFileWeight": 1023.5333333333333
-    },
-    "tooling": {
-      "systems": 0,
-      "files": 8,
-      "directories": 1,
-      "symbols": 65,
-      "headings": 0,
-      "nodes": 74,
-      "lines": 1129,
-      "bytes": 45395,
-      "weight": 6596.006707778696,
-      "maxFileWeight": 591.8555555555556
-    },
-    "integration": {
+    "application": {
       "systems": 1,
       "files": 0,
       "directories": 0,
@@ -159,11 +78,83 @@
       "bytes": 0,
       "weight": 180,
       "maxFileWeight": 1
+    },
+    "services": {
+      "systems": 1,
+      "files": 0,
+      "directories": 0,
+      "symbols": 0,
+      "headings": 0,
+      "nodes": 1,
+      "lines": 0,
+      "bytes": 0,
+      "weight": 180,
+      "maxFileWeight": 1
+    },
+    "packages": {
+      "systems": 1,
+      "files": 0,
+      "directories": 0,
+      "symbols": 0,
+      "headings": 0,
+      "nodes": 1,
+      "lines": 0,
+      "bytes": 0,
+      "weight": 180,
+      "maxFileWeight": 1
+    },
+    "documentation": {
+      "systems": 1,
+      "files": 0,
+      "directories": 0,
+      "symbols": 0,
+      "headings": 0,
+      "nodes": 1,
+      "lines": 0,
+      "bytes": 0,
+      "weight": 180,
+      "maxFileWeight": 1
+    },
+    "automation": {
+      "systems": 1,
+      "files": 1,
+      "directories": 2,
+      "symbols": 0,
+      "headings": 0,
+      "nodes": 4,
+      "lines": 64,
+      "bytes": 1614,
+      "weight": 286.93333333333334,
+      "maxFileWeight": 82.93333333333334
+    },
+    "tooling": {
+      "systems": 1,
+      "files": 3,
+      "directories": 1,
+      "symbols": 9,
+      "headings": 0,
+      "nodes": 14,
+      "lines": 166,
+      "bytes": 12775,
+      "weight": 1329.1012107361066,
+      "maxFileWeight": 524.3
+    },
+    "root": {
+      "systems": 1,
+      "files": 14,
+      "directories": 1,
+      "symbols": 10,
+      "headings": 19,
+      "nodes": 45,
+      "lines": 443,
+      "bytes": 100866,
+      "weight": 3180.932536210056,
+      "maxFileWeight": 962.2666666666667
     }
   },
   "sizeModel": {
-    "districtWeightMax": 76544.71218332904,
-    "fileWeightMax": 1758.3,
-    "sizing": "District footprint reflects per-domain repository weight; building footprint/height reflect file lines, bytes, and safe symbol/headings where available."
+    "districtWeightMax": 3180.932536210056,
+    "fileWeightMax": 962.2666666666667,
+    "sizing": "Districts reflect public-safe repository weight; structures reflect public-safe file metadata."
   }
 }
