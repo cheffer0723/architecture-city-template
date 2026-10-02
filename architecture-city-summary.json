@@ -2,8 +2,8 @@
   "schemaVersion": "1.0.0",
   "projectName": "Architecture City Template",
   "repository": "cheffer0723/architecture-city-template",
-  "commit": "local",
-  "generatedAt": "2026-10-02T17:18:50.683Z",
+  "commit": "24ee797237d6d64096a7deb211a91f906d8ac9e0",
+  "generatedAt": "2026-10-02T21:08:14.710Z",
   "fidelity": "city-summary",
   "stats": {
     "files": 0,
@@ -123,9 +123,9 @@
       "headings": 0,
       "nodes": 4,
       "lines": 64,
-      "bytes": 1614,
-      "weight": 286.93333333333334,
-      "maxFileWeight": 82.93333333333334
+      "bytes": 1580,
+      "weight": 286.55555555555554,
+      "maxFileWeight": 82.55555555555556
     },
     "tooling": {
       "systems": 1,
@@ -135,8 +135,8 @@
       "headings": 0,
       "nodes": 14,
       "lines": 166,
-      "bytes": 12775,
-      "weight": 1329.1012107361066,
+      "bytes": 12723,
+      "weight": 1328.5234329583288,
       "maxFileWeight": 524.3
     },
     "root": {
@@ -147,14 +147,14 @@
       "headings": 19,
       "nodes": 45,
       "lines": 443,
-      "bytes": 100866,
-      "weight": 3180.932536210056,
-      "maxFileWeight": 962.2666666666667
+      "bytes": 100604,
+      "weight": 3177.8561378127406,
+      "maxFileWeight": 960.1444444444444
     }
   },
   "sizeModel": {
-    "districtWeightMax": 3180.932536210056,
-    "fileWeightMax": 962.2666666666667,
+    "districtWeightMax": 3177.8561378127406,
+    "fileWeightMax": 960.1444444444444,
     "sizing": "Districts reflect public-safe repository weight; structures reflect public-safe file metadata."
   }
 }

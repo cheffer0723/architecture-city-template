@@ -2,8 +2,8 @@
   "schemaVersion": "1.0.0",
   "projectName": "Architecture City Template",
   "repository": "cheffer0723/architecture-city-template",
-  "commit": "local",
-  "generatedAt": "2026-10-02T17:18:50.683Z",
+  "commit": "24ee797237d6d64096a7deb211a91f906d8ac9e0",
+  "generatedAt": "2026-10-02T21:08:14.710Z",
   "fidelity": {
     "principle": "repository-is-source-of-truth",
     "publicPolicy": "paths and identifiers only; no file contents"
@@ -66,7 +66,7 @@
       "group": "automation",
       "kind": "configuration",
       "status": "source",
-      "size": 1614,
+      "size": 1580,
       "lines": 64,
       "symbols": [],
       "headings": []
@@ -349,7 +349,7 @@
       "group": "root",
       "kind": "source",
       "status": "source",
-      "size": 68154,
+      "size": 67963,
       "lines": 204,
       "symbols": [],
       "headings": []
@@ -362,7 +362,7 @@
       "group": "root",
       "kind": "source",
       "status": "source",
-      "size": 13192,
+      "size": 13158,
       "lines": 35,
       "symbols": [
         {
@@ -519,7 +519,7 @@
       "group": "root",
       "kind": "document",
       "status": "source",
-      "size": 492,
+      "size": 481,
       "lines": 12,
       "symbols": [],
       "headings": [
@@ -542,7 +542,7 @@
       "group": "root",
       "kind": "configuration",
       "status": "source",
-      "size": 631,
+      "size": 605,
       "lines": 27,
       "symbols": [],
       "headings": []
@@ -686,7 +686,7 @@
       "group": "tooling",
       "kind": "source",
       "status": "source",
-      "size": 2033,
+      "size": 1981,
       "lines": 53,
       "symbols": [],
       "headings": []
